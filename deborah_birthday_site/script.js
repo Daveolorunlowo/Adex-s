@@ -764,6 +764,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Utility Functions ---
 
+function triggerHeartRain() {
+    const rainContainer = document.getElementById('heart-rain');
+    if (!rainContainer) return;
+    for (let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = ['💕', '💙', '✨', '🎀'][Math.floor(Math.random() * 4)];
+        heart.style.position = 'absolute';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = -50 + 'px';
+        heart.style.fontSize = Math.random() * 1.5 + 0.5 + 'rem';
+        heart.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+        rainContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }
+    if (!document.getElementById('rain-style')) {
+        const s = document.createElement('style');
+        s.id = 'rain-style';
+        s.textContent = '@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }';
+        document.head.appendChild(s);
+    }
+}
+
 function createSparkles(element, count = 10) {
     const rect = element.getBoundingClientRect();
     for (let i = 0; i < count; i++) {
